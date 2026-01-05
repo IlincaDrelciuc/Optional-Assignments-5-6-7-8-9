@@ -1,8 +1,25 @@
-body {
-  margin: 0;
-}
-
-#map {
-  width: 100vw;
-  height: 100vh;
-}
+body{margin:0}
+#map{width:100vw;height:100vh}
+.panel{position:fixed;top:12px;left:12px;width:min(360px,92vw);max-height:calc(100vh - 24px);overflow:auto;background:rgba(20,24,38,.92);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:12px;color:#eef3ff;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;z-index:1000}
+.panelTop{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+.title{font-weight:900;font-size:16px}
+.status{font-size:12px;color:rgba(238,243,255,.75)}
+.group{border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:10px;margin:10px 0;background:rgba(255,255,255,.05)}
+.groupTitle{font-weight:900;font-size:13px;margin-bottom:8px;color:rgba(238,243,255,.9)}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.hint{font-size:12px;color:rgba(238,243,255,.72);margin-top:8px}
+input[type="text"]{flex:1;min-width:170px;border:1px solid rgba(255,255,255,.16);border-radius:12px;background:rgba(255,255,255,.08);color:#eef3ff;padding:10px 12px;outline:none}
+select{flex:1;border:1px solid rgba(255,255,255,.16);border-radius:12px;background:rgba(255,255,255,.08);color:#eef3ff;padding:10px 12px;outline:none}
+button{border:1px solid rgba(255,255,255,.16);border-radius:12px;background:rgba(255,255,255,.1);color:#eef3ff;padding:10px 12px;cursor:pointer;font-weight:800}
+button:hover{background:rgba(255,255,255,.14)}
+button:active{transform:translateY(1px)}
+.chip{display:inline-flex;gap:8px;align-items:center;padding:8px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);font-size:12px;font-weight:800;cursor:pointer;user-select:none}
+.chip input{accent-color:#6cf}
+.results{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.resultItem{border:1px solid rgba(255,255,255,.12);border-radius:12px;background:rgba(0,0,0,.18);padding:10px}
+.resultItem .name{font-weight:900}
+.resultItem .meta{font-size:12px;color:rgba(238,243,255,.75);margin-top:4px}
+.resultItem .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-weight:900}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.85);color:#fff;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.18);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;font-size:13px;z-index:1200;max-width:min(560px,92vw);text-align:center}
+@media (max-width:520px){.panel{left:8px;top:8px;max-height:calc(100vh - 16px)}}

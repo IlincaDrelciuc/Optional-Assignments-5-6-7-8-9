@@ -1,15 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Geolocation Map</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
-  <link rel="stylesheet" href="styles/style.css" type="text/css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Geolocation + Leaflet Lab</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="stylesheet" href="styles/style.css" type="text/css" />
+
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="scripts/map.js" type="text/javascript" defer></script>
 </head>
 <body>
   <div id="map"></div>
+
+  <aside class="panel" id="panel">
+    <div class="panelTop">
+      <div class="title">Map Tools</div>
+      <div id="status" class="status">Loading…</div>
+    </div>
+
+    <div class="group">
+      <div class="groupTitle">Search</div>
+      <div class="row">
+        <input id="searchInput" type="text" placeholder="Search places or address..." />
+        <button id="searchBtn" type="button">Search</button>
+      </div>
+      <div class="row">
+        <button id="clearSearch" type="button">Clear</button>
+        <button id="locateBtn" type="button">Locate</button>
+      </div>
+      <div id="searchResults" class="results"></div>
+    </div>
+
+    <div class="group">
+      <div class="groupTitle">Add Marker</div>
+      <div class="row">
+        <label class="chip"><input type="radio" name="markerType" value="home" checked /> Home</label>
+        <label class="chip"><input type="radio" name="markerType" value="work" /> Work</label>
+        <label class="chip"><input type="radio" name="markerType" value="fav" /> Favorite</label>
+      </div>
+      <div class="hint">Click the map to add a marker with the selected icon.</div>
+    </div>
+
+    <div class="group">
+      <div class="groupTitle">Tools</div>
+      <div class="row">
+        <label class="chip"><input id="toolDistance" type="checkbox" /> Measure</label>
+        <label class="chip"><input id="toolRoute" type="checkbox" /> Route</label>
+      </div>
+      <div class="row">
+        <button id="clearRoute" type="button">Clear Route</button>
+        <button id="clearMeasures" type="button">Clear Measures</button>
+      </div>
+      <div id="toolInfo" class="hint">Turn on Measure or Route, then click the map.</div>
+    </div>
+
+    <div class="group">
+      <div class="groupTitle">Nearby Places</div>
+      <div class="row">
+        <input id="nearbyRadius" type="range" min="100" max="5000" step="100" value="1500" />
+        <div id="nearbyValue" class="mono">1500 m</div>
+      </div>
+      <div class="row">
+        <button id="showNearby" type="button">Show Nearby</button>
+        <button id="clearNearby" type="button">Clear</button>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="groupTitle">Geofences</div>
+      <div class="hint">Geofences are active. You’ll get an alert when you enter/exit.</div>
+      <div id="fenceList" class="results"></div>
+    </div>
+
+    <div class="group">
+      <div class="groupTitle">Map Style</div>
+      <div class="row">
+        <select id="baseLayerSelect">
+          <option value="osm">OpenStreetMap</option>
+          <option value="dark">Dark</option>
+          <option value="topo">Topographic</option>
+          <option value="terrain">Terrain</option>
+          <option value="sat">Satellite</option>
+        </select>
+        <button id="applyBase" type="button">Apply</button>
+      </div>
+    </div>
+  </aside>
+
+  <div id="toast" class="toast" style="display:none;"></div>
 </body>
 </html>
