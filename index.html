@@ -11,25 +11,109 @@
   <main class="app">
     <header class="topbar">
       <h1>Virtual Piano</h1>
+
       <div class="controls">
-        <label>
-          Volume
-          <input id="volume" type="range" min="0" max="100" value="30">
-        </label>
-        <label>
-          Waveform
-          <select id="waveform">
-            <option value="sine">sine</option>
-            <option value="square">square</option>
-            <option value="sawtooth" selected>sawtooth</option>
-            <option value="triangle">triangle</option>
-          </select>
-        </label>
-        <div id="noteDisplay" class="noteDisplay">—</div>
+        <div class="row">
+          <label class="ctl">
+            <span>Volume</span>
+            <input id="volume" type="range" min="0" max="100" value="30">
+          </label>
+
+          <label class="ctl">
+            <span>Waveform</span>
+            <select id="waveform">
+              <option value="sine">sine</option>
+              <option value="square">square</option>
+              <option value="sawtooth" selected>sawtooth</option>
+              <option value="triangle">triangle</option>
+            </select>
+          </label>
+
+          <div class="ctl btns">
+            <button id="octDown" type="button">Octave -</button>
+            <button id="octUp" type="button">Octave +</button>
+          </div>
+
+          <div class="ctl btns">
+            <button id="toggleLabels" type="button">Labels: ON</button>
+            <button id="midiStatus" type="button" disabled>MIDI: …</button>
+          </div>
+
+          <div class="ctl btns">
+            <button id="rec" type="button">● Record</button>
+            <button id="stop" type="button">■ Stop</button>
+            <button id="playRec" type="button">▶ Play</button>
+            <button id="exportAudio" type="button">⬇ Export</button>
+          </div>
+
+          <div class="ctl btns">
+            <button class="chord" data-chord="Cmaj" type="button">C</button>
+            <button class="chord" data-chord="Gmaj" type="button">G</button>
+            <button class="chord" data-chord="Amin" type="button">Am</button>
+            <button class="chord" data-chord="Fmaj" type="button">F</button>
+          </div>
+
+          <div class="ctl btns">
+            <button class="preset" data-preset="piano" type="button">Piano</button>
+            <button class="preset" data-preset="organ" type="button">Organ</button>
+            <button class="preset" data-preset="strings" type="button">Strings</button>
+            <button class="preset" data-preset="brass" type="button">Brass</button>
+            <button class="preset" data-preset="lead" type="button">Lead</button>
+          </div>
+
+          <div class="ctl toggles">
+            <label><input id="fxDelay" type="checkbox"> Delay</label>
+            <label><input id="fxDist" type="checkbox"> Distortion</label>
+            <label><input id="fxReverb" type="checkbox"> Reverb</label>
+          </div>
+
+          <div class="ctl adsr">
+            <label><span>Attack</span><input id="attack" type="range" min="0" max="1" step="0.01" value="0.01"></label>
+            <label><span>Decay</span><input id="decay" type="range" min="0" max="1" step="0.01" value="0.12"></label>
+            <label><span>Sustain</span><input id="sustain" type="range" min="0" max="1" step="0.01" value="0.7"></label>
+            <label><span>Release</span><input id="release" type="range" min="0" max="2" step="0.01" value="0.25"></label>
+          </div>
+
+          <div class="ctl metro">
+            <button id="metroToggle" type="button">Metronome: OFF</button>
+            <label><span>BPM</span><input id="bpm" type="range" min="40" max="240" step="1" value="120"></label>
+            <div id="bpmValue">120</div>
+          </div>
+
+          <div class="ctl noteDisp">
+            <div id="noteDisplay">—</div>
+          </div>
+        </div>
       </div>
     </header>
 
-    <section class="keyboard" id="keyboard"></section>
+    <section class="stage">
+      <div class="keyboardWrap">
+        <div id="keyboard" class="keyboard"></div>
+      </div>
+
+      <div class="visuals">
+        <div class="vizCard">
+          <h2>Spectrum</h2>
+          <canvas id="spectrum" width="900" height="200"></canvas>
+        </div>
+
+        <div class="vizCard">
+          <h2>Piano Roll</h2>
+          <canvas id="pianoRoll" width="900" height="220"></canvas>
+        </div>
+
+        <div class="vizCard">
+          <h2>16-Step Sequencer</h2>
+          <div class="seqTop">
+            <button id="seqToggle" type="button">Sequencer: OFF</button>
+            <label><span>Step ms</span><input id="seqSpeed" type="range" min="80" max="500" step="10" value="160"></label>
+            <div id="seqSpeedValue">160</div>
+          </div>
+          <div id="sequencer" class="sequencer"></div>
+        </div>
+      </div>
+    </section>
   </main>
 </body>
 </html>
