@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voice Number Guessing Game</title>
+  <link rel="stylesheet" href="styles/style.css">
+  <script src="scripts/speech.js" defer></script>
+</head>
+<body>
+  <main class="app">
+    <header class="header">
+      <h1>Voice Number Guessing Game</h1>
+      <div class="statusRow">
+        <div class="pill" id="supportStatus">Checking support…</div>
+        <div class="pill" id="listenStatus">Not listening</div>
+      </div>
+    </header>
+
+    <section class="panel controls">
+      <div class="row">
+        <button id="btnListen" type="button">🎙️ Guess (Speak)</button>
+        <button id="btnNewGame" type="button">🔄 New game</button>
+        <button id="btnHelp" type="button">❓ Help</button>
+      </div>
+
+      <div class="grid">
+        <label class="field">
+          <span>Listening mode</span>
+          <select id="listenMode">
+            <option value="push" selected>Click-to-speak</option>
+            <option value="continuous">Continuous</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Difficulty</span>
+          <select id="difficulty">
+            <option value="easy">Easy (1–50)</option>
+            <option value="medium" selected>Medium (1–100)</option>
+            <option value="hard">Hard (1–1000)</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Language</span>
+          <select id="language">
+            <option value="en-US" selected>English (US)</option>
+            <option value="es-ES">Español (ES)</option>
+            <option value="fr-FR">Français (FR)</option>
+            <option value="de-DE">Deutsch (DE)</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Voice</span>
+          <select id="voiceSelect">
+            <option value="">Loading voices…</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Speech rate</span>
+          <input id="rate" type="range" min="0.5" max="2" step="0.05" value="1">
+        </label>
+
+        <label class="field">
+          <span>Pitch</span>
+          <input id="pitch" type="range" min="0" max="2" step="0.05" value="1">
+        </label>
+
+        <label class="field">
+          <span>Voice volume</span>
+          <input id="ttsVolume" type="range" min="0" max="1" step="0.01" value="1">
+        </label>
+
+        <label class="field">
+          <span>Multiplayer</span>
+          <select id="multiplayer">
+            <option value="off" selected>Off</option>
+            <option value="on">On (2 players)</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <section class="panel game">
+      <div class="row wrap">
+        <div class="card">
+          <h2>Current</h2>
+          <div class="kv">
+            <div class="k">Player</div>
+            <div class="v" id="playerLabel">Player 1</div>
+          </div>
+          <div class="kv">
+            <div class="k">Transcribed</div>
+            <div class="v" id="transcribed">—</div>
+          </div>
+          <div class="kv">
+            <div class="k">Hint</div>
+            <div class="v" id="hint">—</div>
+          </div>
+          <div class="kv">
+            <div class="k">Attempts</div>
+            <div class="v" id="attempts">0</div>
+          </div>
+          <div class="kv">
+            <div class="k">Range</div>
+            <div class="v" id="range">—</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Guess History</h2>
+          <div class="split">
+            <div>
+              <h3 id="p1Title">Player 1</h3>
+              <ol id="historyP1" class="history"></ol>
+            </div>
+            <div>
+              <h3 id="p2Title" class="muted">Player 2</h3>
+              <ol id="historyP2" class="history"></ol>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row wrap">
+        <div class="card wide">
+          <h2>Range Visualization</h2>
+          <canvas id="rangeCanvas" width="900" height="120"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel stats">
+      <div class="row wrap">
+        <div class="card">
+          <h2>Session / Overall Stats</h2>
+          <div class="kv"><div class="k">Games played</div><div class="v" id="gamesPlayed">0</div></div>
+          <div class="kv"><div class="k">Wins</div><div class="v" id="wins">0</div></div>
+          <div class="kv"><div class="k">Losses</div><div class="v" id="losses">0</div></div>
+          <div class="kv"><div class="k">Win ratio</div><div class="v" id="winRatio">—</div></div>
+          <div class="kv"><div class="k">Best attempts</div><div class="v" id="bestAttempts">—</div></div>
+          <div class="kv"><div class="k">Last time</div><div class="v" id="lastTime">—</div></div>
+          <div class="kv"><div class="k">Avg time</div><div class="v" id="avgTime">—</div></div>
+        </div>
+
+        <div class="card wide">
+          <h2>Attempts Distribution</h2>
+          <canvas id="statsCanvas" width="900" height="220"></canvas>
+        </div>
+
+        <div class="card wide">
+          <h2>Achievements</h2>
+          <div class="badges" id="badges"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
