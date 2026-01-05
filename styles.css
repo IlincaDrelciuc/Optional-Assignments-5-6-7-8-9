@@ -1,12 +1,222 @@
+* { box-sizing: border-box; }
+
+:root {
+  --bg: #0f1220;
+  --panel: rgba(255,255,255,0.06);
+  --panelBorder: rgba(255,255,255,0.14);
+  --text: #e9e9f3;
+  --muted: rgba(233,233,243,0.7);
+  --grid: rgba(255,255,255,0.18);
+  --axis: rgba(255,255,255,0.7);
+  --tooltipBg: rgba(0,0,0,0.85);
+  --tooltipText: #fff;
+
+  --s1: #41d36b;
+  --s2: #4aa3ff;
+  --s3: #ff4b4b;
+}
+
 body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
   margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.theme-light {
+  --bg: #f3f6fb;
+  --panel: rgba(0,0,0,0.04);
+  --panelBorder: rgba(0,0,0,0.12);
+  --text: #182033;
+  --muted: rgba(24,32,51,0.7);
+  --grid: rgba(0,0,0,0.18);
+  --axis: rgba(0,0,0,0.75);
+  --tooltipBg: rgba(24,32,51,0.95);
+  --tooltipText: #fff;
+
+  --s1: #0a8f3f;
+  --s2: #1d6cff;
+  --s3: #d62828;
+}
+
+.theme-contrast {
+  --bg: #000;
+  --panel: rgba(255,255,255,0.08);
+  --panelBorder: rgba(255,255,255,0.35);
+  --text: #fff;
+  --muted: rgba(255,255,255,0.85);
+  --grid: rgba(255,255,255,0.35);
+  --axis: rgba(255,255,255,0.95);
+  --tooltipBg: rgba(255,255,255,0.92);
+  --tooltipText: #000;
+
+  --s1: #00ff6a;
+  --s2: #00b7ff;
+  --s3: #ff2ad4;
+}
+
+.app {
+  width: min(1240px, 96vw);
+  margin: 18px auto 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.topbar {
+  border: 1px solid var(--panelBorder);
+  background: var(--panel);
+  border-radius: 16px;
+  padding: 14px;
+}
+
+.topbar h1 {
+  margin: 0 0 12px 0;
+  font-size: 20px;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+button {
+  border: 1px solid var(--panelBorder);
+  background: rgba(255,255,255,0.08);
+  color: var(--text);
+  padding: 10px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 650;
+}
+
+button:hover { background: rgba(255,255,255,0.12); }
+button:active { transform: translateY(1px); }
+
+.ctl {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--panelBorder);
+  background: rgba(0,0,0,0.12);
+  min-width: 150px;
+}
+
+.theme-light .ctl { background: rgba(0,0,0,0.02); }
+.theme-contrast .ctl { background: rgba(255,255,255,0.05); }
+
+.ctl.inline {
+  flex-direction: row;
+  align-items: center;
+  min-width: unset;
+  gap: 10px;
+}
+
+.ctl span {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.ctlValue {
+  font-size: 12px;
+  color: var(--text);
+  font-weight: 700;
+  margin-top: -4px;
+}
+
+input[type="range"] { accent-color: var(--s2); }
+input[type="number"], select {
+  border: 1px solid var(--panelBorder);
+  background: rgba(255,255,255,0.06);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 8px 10px;
+  outline: none;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 14px;
+  align-items: start;
+}
+
+.canvasWrap {
+  position: relative;
+  border: 1px solid var(--panelBorder);
+  background: var(--panel);
+  border-radius: 16px;
+  padding: 12px;
 }
 
 #chartCanvas {
-  border: 1px solid black;
-  background: white;
+  display: block;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(0,0,0,0.12);
+}
+
+.theme-light #chartCanvas { background: rgba(255,255,255,0.85); }
+.theme-contrast #chartCanvas { background: rgba(255,255,255,0.06); }
+
+.tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: var(--tooltipBg);
+  color: var(--tooltipText);
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-size: 12px;
+  border: 1px solid rgba(255,255,255,0.18);
+  max-width: 240px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+}
+
+.statsPanel {
+  border: 1px solid var(--panelBorder);
+  background: var(--panel);
+  border-radius: 16px;
+  padding: 12px;
+}
+
+.statsPanel h2 {
+  margin: 0 0 10px 0;
+  font-size: 16px;
+}
+
+.statsTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.statsTable th, .statsTable td {
+  padding: 8px 6px;
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+}
+
+.statsTable th {
+  text-align: left;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(255,255,255,0.06);
+  font-weight: 700;
+  font-size: 12px;
+}
+
+@media (max-width: 1050px) {
+  .content { grid-template-columns: 1fr; }
 }
